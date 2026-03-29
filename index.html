@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notion AI Mastery Quiz</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Banner (persistent) -->
+  <header class="banner">
+    <div class="container">
+      <div class="banner-sub">知っている と 使える の差を測る</div>
+      <div class="banner-title">Notion AI 講座 クイズ</div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Screen 1: Login -->
+    <section id="login-screen" class="screen">
+      <div class="login-card">
+        <h2>ログイン</h2>
+        <div class="input-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <input type="text" id="login-name" placeholder="名前" autocomplete="name">
+        </div>
+        <div class="input-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <path d="M22 4l-10 8L2 4"></path>
+          </svg>
+          <input type="email" id="login-email" placeholder="メールアドレス" autocomplete="email">
+        </div>
+        <button class="btn btn-login btn-full" id="login-btn">進む</button>
+      </div>
+    </section>
+
+    <!-- Screen 2: Landing -->
+    <section id="landing-screen" class="screen">
+      <div class="landing-header">
+        <h1>カテゴリー別の出題範囲</h1>
+        <p>全18問 / 5カテゴリー</p>
+      </div>
+      <div class="badge-grid" id="badge-grid"></div>
+      <div class="landing-actions">
+        <button class="btn btn-start" id="start-quiz-btn">クイズに挑戦する</button>
+      </div>
+    </section>
+
+    <!-- Screen 3: Quiz -->
+    <section id="quiz-screen" class="screen">
+      <div class="progress-text" id="progress-text"></div>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <div class="question-card" id="question-card"></div>
+    </section>
+
+    <!-- Screen 4: Report -->
+    <section id="report-screen" class="screen">
+      <div id="report-content"></div>
+    </section>
+
+  </main>
+
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
