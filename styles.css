@@ -781,6 +781,7 @@ body {
 /* === Advice Button === */
 .btn-advice {
   background: var(--lavender);
+  color: #fff;
 }
 
 /* === Toast === */
