@@ -156,6 +156,8 @@
       <div class="question-text">${escapeHTML(q.question)}</div>
       ${optionsHTML}
       <div class="explanation-box" id="explanation-box">
+        <div class="answer-result" id="answer-result"></div>
+        <div class="correct-answer-display" id="correct-answer-display"></div>
         ${q.type === 'free' ? `<div class="explanation-label">模範解答</div><div class="model-answer">${escapeHTML(q.modelAnswer)}</div>` : ''}
         ${q.type === 'free' ? `
           <div class="explanation-label">自己評価</div>
@@ -202,6 +204,7 @@
     });
 
     answers.push({ questionId: q.id, correct: isCorrect, userAnswer: selectedIndex });
+    showAnswerResult(isCorrect, `${String.fromCharCode(65 + q.correctIndex)}. ${q.options[q.correctIndex]}`);
     showExplanationAndNext();
   }
 
@@ -233,7 +236,9 @@
     });
 
     $('#multi-submit-btn').style.display = 'none';
+    const correctText = q.correctIndices.map((i) => q.options[i]).join('、');
     answers.push({ questionId: q.id, correct: isCorrect, userAnswer: selected });
+    showAnswerResult(isCorrect, correctText);
     showExplanationAndNext();
   }
 
@@ -265,6 +270,17 @@
         bindNextButton();
       });
     });
+  }
+
+  function showAnswerResult(isCorrect, correctAnswerText) {
+    const resultEl = $('#answer-result');
+    const displayEl = $('#correct-answer-display');
+    if (isCorrect) {
+      resultEl.innerHTML = '<span class="result-correct">✅ 正解！</span>';
+    } else {
+      resultEl.innerHTML = '<span class="result-wrong">❌ 不正解</span>';
+    }
+    displayEl.innerHTML = `<span class="correct-answer-label">正答：</span>${escapeHTML(correctAnswerText)}`;
   }
 
   function showExplanationAndNext() {

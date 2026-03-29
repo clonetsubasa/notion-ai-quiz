@@ -435,6 +435,39 @@ body {
   display: block;
 }
 
+.answer-result {
+  margin-bottom: 12px;
+}
+
+.result-correct {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--correct);
+}
+
+.result-wrong {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--wrong);
+}
+
+.correct-answer-display {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-left: 3px solid var(--correct);
+  border-radius: var(--radius-sm);
+}
+
+.correct-answer-label {
+  font-weight: 700;
+  color: var(--correct);
+  margin-right: 4px;
+}
+
 .explanation-label {
   font-size: 12px;
   font-weight: 700;
