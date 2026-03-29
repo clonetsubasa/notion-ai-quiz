@@ -778,6 +778,41 @@ body {
   flex: 1;
 }
 
+/* === Advice Button === */
+.btn-advice {
+  background: var(--lavender);
+}
+
+/* === Toast === */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(26, 26, 46, 0.9);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  z-index: 1000;
+  animation: toast-slide-up 0.3s ease;
+}
+
+.toast.fade-out {
+  animation: toast-fade-out 0.3s ease forwards;
+}
+
+@keyframes toast-slide-up {
+  from { opacity: 0; transform: translateX(-50%) translateY(16px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes toast-fade-out {
+  from { opacity: 1; transform: translateX(-50%) translateY(0); }
+  to { opacity: 0; transform: translateX(-50%) translateY(16px); }
+}
+
 /* === Print / PDF === */
 @media print {
   body { background: #fff; }

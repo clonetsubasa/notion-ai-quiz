@@ -439,6 +439,7 @@
       <div class="report-actions">
         <button class="btn btn-export" id="export-pdf-btn">PDF出力</button>
         <button class="btn btn-email" id="email-btn">メールで送信</button>
+        <button class="btn btn-advice" id="advice-btn">しくみちゃんに相談</button>
         <button class="btn btn-secondary" id="retake-btn">もう一度挑戦</button>
       </div>`;
 
@@ -476,6 +477,30 @@
       window.location.href = mailto;
     });
 
+    $('#advice-btn').addEventListener('click', () => {
+      let text = `【Notion AI講座クイズ結果】\n`;
+      text += `スコア: ${pct}% (${totalCorrect}/${totalQuestions}正解) - レベル: ${level.name}\n\n`;
+      text += `■ カテゴリ別:\n`;
+      catBreakdown.forEach((c) => {
+        text += `- ${c.name}: ${c.pct}% (${c.correct}/${c.total})\n`;
+      });
+      if (gaps.length > 0) {
+        text += `\n■ 弱点カテゴリ: ${gaps.join('、')}\n`;
+      }
+      if (missed.length > 0) {
+        text += `\n■ 間違えた問題:\n`;
+        missed.forEach((m) => {
+          text += `Q${m.id}: ${m.question}\n`;
+          text += `→ 正解: ${m.correctText}\n\n`;
+        });
+      }
+      text += `このクイズ結果を元に、弱点を克服するための具体的な学習アドバイスをお願いします。`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('結果をコピーしました！しくみちゃんに貼り付けてアドバイスをもらいましょう');
+      });
+    });
+
     $('#retake-btn').addEventListener('click', () => {
       startQuiz();
     });
@@ -486,6 +511,20 @@
     const div = document.createElement('div');
     div.textContent = str;
     return div.innerHTML;
+  }
+
+  // --- Toast ---
+  function showToast(message) {
+    const existing = document.querySelector('.toast');
+    if (existing) existing.remove();
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      toast.classList.add('fade-out');
+      toast.addEventListener('animationend', () => toast.remove());
+    }, 3000);
   }
 
   // --- Boot ---
