@@ -859,44 +859,281 @@ body {
 
 /* === Responsive === */
 @media (max-width: 600px) {
+  html {
+    font-size: 15px;
+  }
+
   .container {
-    padding: 0 16px;
+    padding: 0 14px;
   }
 
   .banner {
-    padding: 16px 0;
+    padding: 14px 0;
+  }
+
+  .banner-sub {
+    font-size: 11px;
   }
 
   .banner-title {
-    font-size: 16px;
+    font-size: 15px;
+  }
+
+  /* Landing */
+  .screen {
+    padding: 24px 0 48px;
+  }
+
+  .landing-header {
+    margin-bottom: 24px;
   }
 
   .badge-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
 
+  .badge {
+    padding: 12px 8px;
+  }
+
+  .badge-icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 6px;
+  }
+
+  .badge-name {
+    font-size: 11px;
+  }
+
+  .badge-count {
+    font-size: 10px;
+  }
+
+  /* Login */
   .login-card {
-    margin-top: 32px;
-    padding: 28px 20px;
+    margin-top: 24px;
+    padding: 24px 18px;
   }
 
+  .login-card h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .input-group input {
+    padding: 11px 11px 11px 38px;
+    font-size: 16px; /* prevents iOS zoom on focus */
+  }
+
+  /* Quiz */
   .question-card {
-    padding: 20px;
+    padding: 18px;
+    border-radius: var(--radius-sm);
+  }
+
+  .question-category {
+    font-size: 11px;
+    margin-bottom: 8px;
   }
 
   .question-text {
     font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 18px;
+  }
+
+  .option-btn {
+    padding: 12px 14px;
+    font-size: 13px;
+    gap: 10px;
+  }
+
+  .option-letter {
+    width: 22px;
+    height: 22px;
+    font-size: 11px;
+  }
+
+  .options-list {
+    gap: 8px;
+  }
+
+  .free-text-area {
+    min-height: 120px;
+    font-size: 16px; /* prevents iOS zoom */
+    padding: 12px 14px;
+  }
+
+  /* Explanation */
+  .explanation-box {
+    padding: 16px;
+    margin-top: 16px;
+  }
+
+  .result-correct,
+  .result-wrong {
+    font-size: 16px;
+  }
+
+  .correct-answer-display {
+    font-size: 13px;
+    padding: 10px 14px;
+  }
+
+  .explanation-text {
+    font-size: 13px;
+  }
+
+  .model-answer {
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  /* Self-rate */
+  .self-rate-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .self-rate-btn {
+    padding: 11px 14px;
+    font-size: 13px;
+  }
+
+  /* Report */
+  .report-header {
+    padding: 24px 0;
+  }
+
+  .report-score {
+    font-size: 48px;
+  }
+
+  .report-score span {
+    font-size: 20px;
+  }
+
+  .report-level {
+    font-size: 13px;
+    padding: 6px 16px;
+  }
+
+  .breakdown-section h3,
+  .missed-section h3,
+  .action-plan h3 {
+    font-size: 15px;
+  }
+
+  .breakdown-name {
+    font-size: 13px;
+  }
+
+  .breakdown-score {
+    font-size: 12px;
+  }
+
+  .analysis-card {
+    padding: 18px;
+  }
+
+  .analysis-card h4 {
+    font-size: 13px;
+  }
+
+  .analysis-card li {
+    font-size: 13px;
+  }
+
+  .missed-item {
+    padding: 16px;
+  }
+
+  .missed-q-text {
+    font-size: 13px;
+  }
+
+  .missed-answer {
+    font-size: 12px;
+  }
+
+  .action-plan {
+    padding: 18px;
+  }
+
+  .action-text {
+    font-size: 13px;
+  }
+
+  .action-num {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
   }
 
   .report-actions {
     flex-direction: column;
+    gap: 8px;
   }
 
   .report-actions .btn {
     width: 100%;
+    padding: 12px 20px;
+    font-size: 14px;
   }
 
-  .self-rate-buttons {
-    flex-direction: column;
+  /* Progress */
+  .progress-bar-container {
+    margin-bottom: 20px;
+  }
+
+  /* Toast */
+  .toast {
+    left: 14px;
+    right: 14px;
+    transform: none;
+    bottom: 20px;
+    text-align: center;
+    font-size: 13px;
+  }
+
+  @keyframes toast-slide-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes toast-fade-out {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(16px); }
+  }
+}
+
+/* === Small phones (iPhone SE etc.) === */
+@media (max-width: 375px) {
+  .badge-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .badge {
+    padding: 10px 6px;
+  }
+
+  .badge-name {
+    font-size: 10px;
+  }
+
+  .question-card {
+    padding: 14px;
+  }
+
+  .question-text {
+    font-size: 14px;
+  }
+
+  .option-btn {
+    padding: 10px 12px;
+    font-size: 12px;
   }
 }
