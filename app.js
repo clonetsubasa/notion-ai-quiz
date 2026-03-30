@@ -108,6 +108,22 @@
     renderQuestion();
   }
 
+  // --- Shuffle utility ---
+  function shuffleOptions(q) {
+    if (q.type !== 'choice') return { options: q.options, correctIndex: q.correctIndex };
+    const indices = q.options.map((_, i) => i);
+    // Fisher-Yates shuffle
+    for (let i = indices.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [indices[i], indices[j]] = [indices[j], indices[i]];
+    }
+    return {
+      options: indices.map((i) => q.options[i]),
+      correctIndex: indices.indexOf(q.correctIndex),
+      indexMap: indices // indexMap[displayIndex] = originalIndex
+    };
+  }
+
   function renderQuestion() {
     const q = QUESTIONS[currentQuestion];
     const total = QUESTIONS.length;
@@ -121,8 +137,11 @@
     let optionsHTML = '';
     let extraHTML = '';
 
+    // Shuffle choice options
+    const shuffled = shuffleOptions(q);
+
     if (q.type === 'choice') {
-      optionsHTML = `<div class="options-list">${q.options
+      optionsHTML = `<div class="options-list">${shuffled.options
         .map(
           (opt, i) => `
         <button class="option-btn" data-index="${i}">
@@ -175,7 +194,7 @@
     // Bind events
     if (q.type === 'choice') {
       card.querySelectorAll('.option-btn').forEach((btn) => {
-        btn.addEventListener('click', () => handleChoiceAnswer(q, btn));
+        btn.addEventListener('click', () => handleChoiceAnswer(q, btn, shuffled));
       });
     } else if (q.type === 'multi') {
       multiSelections = new Set();
@@ -189,22 +208,22 @@
   }
 
   // --- Choice answer ---
-  function handleChoiceAnswer(q, clickedBtn) {
+  function handleChoiceAnswer(q, clickedBtn, shuffled) {
     const btns = $$('.option-btn');
     if (clickedBtn.classList.contains('disabled')) return;
 
     const selectedIndex = parseInt(clickedBtn.dataset.index);
-    const isCorrect = selectedIndex === q.correctIndex;
+    const isCorrect = selectedIndex === shuffled.correctIndex;
 
     btns.forEach((b) => {
       b.classList.add('disabled');
       const idx = parseInt(b.dataset.index);
-      if (idx === q.correctIndex) b.classList.add('correct');
+      if (idx === shuffled.correctIndex) b.classList.add('correct');
       if (idx === selectedIndex && !isCorrect) b.classList.add('wrong');
     });
 
     answers.push({ questionId: q.id, correct: isCorrect, userAnswer: selectedIndex });
-    showAnswerResult(isCorrect, `${String.fromCharCode(65 + q.correctIndex)}. ${q.options[q.correctIndex]}`);
+    showAnswerResult(isCorrect, `${String.fromCharCode(65 + shuffled.correctIndex)}. ${shuffled.options[shuffled.correctIndex]}`);
     showExplanationAndNext();
   }
 
@@ -275,10 +294,12 @@
   function showAnswerResult(isCorrect, correctAnswerText) {
     const resultEl = $('#answer-result');
     const displayEl = $('#correct-answer-display');
+    const checkIcon = '<svg class="result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>';
+    const crossIcon = '<svg class="result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>';
     if (isCorrect) {
-      resultEl.innerHTML = '<span class="result-correct">✅ 正解！</span>';
+      resultEl.innerHTML = `<span class="result-correct">${checkIcon} 正解！</span>`;
     } else {
-      resultEl.innerHTML = '<span class="result-wrong">❌ 不正解</span>';
+      resultEl.innerHTML = `<span class="result-wrong">${crossIcon} 不正解</span>`;
     }
     displayEl.innerHTML = `<span class="correct-answer-label">正答：</span>${escapeHTML(correctAnswerText)}`;
   }

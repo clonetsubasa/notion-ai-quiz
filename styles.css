@@ -443,12 +443,24 @@ body {
   font-size: 18px;
   font-weight: 700;
   color: var(--correct);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .result-wrong {
   font-size: 18px;
   font-weight: 700;
   color: var(--wrong);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.result-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
 }
 
 .correct-answer-display {
