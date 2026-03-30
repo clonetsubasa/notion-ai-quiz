@@ -43,8 +43,8 @@
     );
   }
 
-  // --- Categories for landing badges (exclude open-claw) ---
-  const VISIBLE_CATEGORIES = CATEGORIES.filter((c) => c.id !== 'open-claw');
+  // --- Categories for landing badges ---
+  const VISIBLE_CATEGORIES = CATEGORIES;
 
   function getCategoryQuestionCount(catId) {
     return QUESTIONS.filter((q) => q.category === catId).length;
